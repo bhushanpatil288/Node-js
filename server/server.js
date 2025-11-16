@@ -5,7 +5,7 @@ const path = require('path');
 const port = 8080;
 
 const server = http.createServer((req, res)=>{
-  const filePath = path.join(__dirname, req.url === '/' ? "index.html" : req.url)
+  const filePath = path.join(__dirname, req.url === '/' ? "index.html" : (req.url).endsWith('.html') ? req.url : req.url+'.html')
 
   const exName = String(path.extname(filePath).toLowerCase())
 
@@ -32,8 +32,6 @@ const server = http.createServer((req, res)=>{
 
 });
 
-console.log(path.join(__dirname, 'index.html'));
-
 server.listen(port, ()=>{
   console.log(`listening on port ${port}`);
-})
+})  
